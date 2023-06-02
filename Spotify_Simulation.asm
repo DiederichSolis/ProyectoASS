@@ -30,7 +30,13 @@
 	msgM2msg BYTE "Selecciono la opción 1 - Lista de reproduccion 'Me gustan'", 0Ah,0
 	msgM2ms2 BYTE "Selecciono la opción 2 - Lista de reproduccion 'Para pasar el rato'", 0Ah,0
 	
-	msgM2ms2 BYTE "Selecciona alguna opción \n", 0Ah,0
+	msgMenu3A BYTE "Selecciona alguna opción", 0Ah,0
+	msgMenu3B BYTE "1. Escuchar musica", 0Ah,0
+	msgMenu3C BYTE "2. Agregar cancion", 0Ah,0
+	msgMenu3D BYTE "3. Eliminar ultima cancion", 0Ah,0
+
+
+
 
 
 	arr BYTE "cancion 1","cancion 2","cancion 3","cancion 4"
@@ -89,14 +95,34 @@ menu proc
 opcion1:
 	push offset msgM2msg
 	call printf
+		
+	push offset msgMenu3A
+	call printf
+	push offset msgMenu3B
+	call printf
+	push offset msgMenu3C
+	call printf
+	push offset msgMenu3D
+	call printf
+	
 
-
-	jmp opcion1
+	;jmp opcion1
+	jmp fin_menu
 
 
 opcion2:
 	push offset msgM2ms2 ; Corregido
 	call printf
+
+	push offset msgMenu3A
+	call printf
+	push offset msgMenu3B
+	call printf
+	push offset msgMenu3C
+	call printf
+	push offset msgMenu3D
+	call printf
+
 	jmp fin_menu
 
 fin_menu:
