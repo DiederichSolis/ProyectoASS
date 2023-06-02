@@ -36,7 +36,8 @@
 	msgMenu3B BYTE "1. Escuchar musica", 0Ah,0
 	msgMenu3C BYTE "2. Agregar cancion", 0Ah,0
 	msgMenu3D BYTE "3. Eliminar ultima cancion", 0Ah,0
-
+	msgAgregarCancion BYTE "Ingrese el nombre de la canción: ", 0
+	msgNoHayCanciones BYTE "No hay canciones en la lista.", 0
 
 
 
@@ -159,6 +160,55 @@ opcion1Menu2:
     ; Fin del recorrido
     ; ...
 	jmp fin_menu
+
+;opcion1Menu2Agregar:
+    ; Agregar canción
+    ;push offset msgAgregarCancion ; Mensaje para solicitar el nombre de la canción
+    ;call printf
+
+    ; Obtener el nombre de la canción ingresado por el usuario
+    ;lea eax, texto
+    ;push eax
+    ;push offset fmt
+    ;call scanf
+
+    ; Agregar la canción al array arr
+    ;mov esi, offset arr      ; Cargar la dirección base del array en ESI
+    ;mov eax, contador        ; Obtener el contador actual
+    ;imul eax, 8              ; Multiplicar el contador por 8 (cada canción ocupa 8 bytes)
+    ;add eax, esi             ; Calcular la dirección de la última posición del array
+    ;mov edi, offset texto    ; Obtener la dirección del nombre de la canción ingresado por el usuario
+    ;mov ecx, 255             ; Longitud máxima del nombre de la canción
+    ;rep movsb                ; Copiar el nombre de la canción al array arr
+
+    ; Actualizar el contador y la longitud del array
+    ;inc contador
+    ;inc longitud
+
+    ;jmp fin_menu
+
+;opcion1Menu2Eliminar:
+    ; Eliminar última canción
+    ;cmp contador, 0           ; Verificar si hay canciones en la lista
+    ;je noHayCanciones         ; Saltar si no hay canciones
+
+    ;dec contador              ; Decrementar el contador para indicar que se elimina una canción
+    ;mov esi, offset arr       ; Cargar la dirección base del array en ESI
+    ;mov eax, contador         ; Obtener el contador actual
+    ;imul eax, 8               ; Multiplicar el contador por 8 (cada canción ocupa 8 bytes)
+    ;add eax, esi              ; Calcular la dirección de la última canción en el array
+    ;mov ecx, 8                ; Tamaño de una canción en bytes (nombre del artista + nombre de la canción + duración)
+    ;mov edi, eax              ; Guardar la dirección de la última canción en EDI
+    ;xor al, al                ; Llenar con ceros para eliminar la canción
+    ;rep stosb                 ; Eliminar la canción
+
+    ;jmp fin_menu
+
+;noHayCanciones:
+    ; Mostrar mensaje de que no hay canciones en la lista
+    ;push offset msgNoHayCanciones
+    ;call printf
+    ;jmp fin_menu
 
 
 opcion2Menu2:
