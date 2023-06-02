@@ -24,6 +24,8 @@
 	msgMenu2 BYTE "1. Lista de reproduccion 'Me gustan'", 0Ah,0
 	msgMenu3 BYTE "2. Lista de reproduccion 'Para pasar el rato'", 0Ah,0
 	strOP BYTE 255 DUP(?);
+	strOP2 BYTE 255 DUP(?);
+
 
 	comparador word ?
 
@@ -39,8 +41,12 @@
 
 
 
-	arr BYTE "cancion 1","cancion 2","cancion 3","cancion 4"
+	arr BYTE "Nombre Artista: Bad Bunny y Grupo Frontera | Nombre Canción: un x100to | Duracion Total: 3:14 min","Nombre Artista: Lil Durk | Nombre Canción: All My Life| Duracion Total: 4:04 min","Nombre Artista: Manuel Turizo y Marshmello | Nombre Canción: El merengue | Duracion Total: 2 min","Nombre Artista: Alan Walker | Nombre Canción: Alone | Duración Total: 2:44 min","Nombre Artista: Kendrick Lamar ft. SZA | Nombre Canción: All the Stars | Duración Total: 3:52 min"
 
+	longitud equ ($ - arr) / ($ - arr[0])                     ; Número de canciones en el array
+	contador dword 4	
+
+	texto BYTE "hola soy nuevo" 
 
 .code
 	includelib libucrt.lib
@@ -105,10 +111,65 @@ opcion1:
 	push offset msgMenu3D
 	call printf
 	
+	;obtener dato menu 2 
+	push ebp
+	mov ebp, esp
+
+	lea eax, strOP2
+	push eax
+	push offset fmt
+	call scanf
+
+	mov cx, '1' ; Corregido
+	mov dx, '2' ; Corregido
+	;mov ex, '3' ; Corregido
+
+	cmp cx, word ptr strOP ; Comparar ax con strOP
+	je opcion1Menu2 ; Saltar si son iguales
+
+	cmp dx, word ptr strOP ; Comparar ax con strOP
+	je opcion2Menu2 ; Saltar si son iguales
 
 	;jmp opcion1
 	jmp fin_menu
 
+opcion1Menu2:
+	 ; Recorrer el array de canciones
+    mov esi, offset arr      ; Cargar la dirección base del array en ESI
+    
+    mov ecx, longitud        ; Cargar el número de canciones en ECX
+    mov edx, 0               ; Contador de posición inicial en el array
+    
+    bucle:
+        mov eax, edx         ; Cargar el índice actual del array en EAX
+        imul eax, 8          ; Multiplicar el índice por 8 (cada canción ocupa 8 bytes)
+        add eax, esi         ; Calcular la dirección del elemento actual del array
+        
+        ; Aquí puedes realizar alguna operación con la canción actual, como imprimirla
+        ; utilizando la función printf, por ejemplo.
+        ; Por ejemplo, imprimir la canción actual:
+        push eax             ; Guardar la dirección de la canción en la pila
+        push offset fmt      ; Cargar la cadena de formato para printf
+        call printf          ; Llamar a la función printf
+        add esp, 8           ; Ajustar el puntero de pila después de llamar a printf
+        
+        inc edx              ; Incrementar el contador de posición
+        loop bucle           ; Repetir el bucle hasta que se recorra todo el array
+    
+    ; Fin del recorrido
+    ; ...
+	jmp fin_menu
+
+
+opcion2Menu2:
+
+
+	
+	;mov arr [contador], texto
+	jmp fin_menu
+
+opcion3Menu2:
+	jmp fin_menu
 
 opcion2:
 	push offset msgM2ms2 ; Corregido
@@ -124,6 +185,7 @@ opcion2:
 	call printf
 
 	jmp fin_menu
+
 
 fin_menu:
 	RET
