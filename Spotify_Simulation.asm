@@ -1,7 +1,7 @@
 ;Universidad del Valle de Guatemala
 ;Diederich Solis 22952
-;Brandon Reyes
-;Carlos Valladares 
+;Brandon Reyes 22992
+;Carlos Valladares 221164
 ;
 ;Descripcion: Simulacion del juego de Spotify
 ;
