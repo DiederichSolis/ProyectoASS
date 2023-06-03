@@ -3,13 +3,12 @@
 ;Brandon Reyes
 ;Carlos Valladares 
 ;
-;Descripcion: Simulacion del juego de black jack
+;Descripcion: Simulacion del juego de Spotify
 ;
 ;Proyecto Final
 ;
 ;Catedratico: Roger Fuentes
-;Fecha de entrega: -/05/2023
-
+;Fecha de entrega: 2/06/2023
 
 
 .386 ; Corregido
@@ -174,9 +173,9 @@ opcion1Menu2:
         imul eax, 8          ; Multiplicar el índice por 8 (cada canción ocupa 8 bytes)
         add eax, esi         ; Calcular la dirección del elemento actual del array
         
-        ; Aquí puedes realizar alguna operación con la canción actual, como imprimirla
-        ; utilizando la función printf, por ejemplo.
-        ; Por ejemplo, imprimir la canción actual:
+								; Aquí puedes realizar alguna operación con la canción actual, como imprimirla
+								; utilizando la función printf, por ejemplo.
+								; Por ejemplo, imprimir la canción actual:
         push eax             ; Guardar la dirección de la canción en la pila
         push offset fmt      ; Cargar la cadena de formato para printf
         call printf          ; Llamar a la función printf
@@ -224,3 +223,62 @@ opcion1Menu2Agregar:
 
 
     ;jmp fin_menu
+
+opcion1Menu2Eliminar:
+
+	lea  edi, strBuff6  ; Cargar la dirección del buffer en edi
+	xor  eax, eax     ; Establecer eax en 0
+	;rep stosb
+
+
+
+	push offset strBuff6 	; Empujar cadena a la pila
+    push offset resultMsg1 	; Empujar formato a la pila
+    call printf 			; Imprimir resultado
+
+
+	
+
+
+
+	jmp opcion1
+
+
+
+;noHayCanciones:
+    ; Mostrar mensaje de que no hay canciones en la lista
+    ;push offset msgNoHayCanciones
+    ;call printf
+    ;jmp fin_menu
+
+
+opcion2Menu2:
+
+
+	
+	;mov arr [contador], texto
+	jmp fin_menu
+
+opcion3Menu2:
+	jmp fin_menu
+
+opcion2:
+	push offset msgM2ms2 ; Corregido
+	call printf
+
+	push offset msgMenu3A
+	call printf
+	push offset msgMenu3B
+	call printf
+	push offset msgMenu3C
+	call printf
+	push offset msgMenu3D
+	call printf
+
+	jmp fin_menu
+
+
+fin_menu:
+	RET
+
+menu endp
